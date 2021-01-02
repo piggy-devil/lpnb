@@ -16,6 +16,8 @@ class Model extends BaseModel
      * @var bool
      */
     public $incrementing = false;
+    protected $primaryKey = 'id';
+    protected $keyType = 'string';
 
     /**
      * The "booting" method of the model.

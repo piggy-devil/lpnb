@@ -13,8 +13,7 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasApiTokens;
 
-    protected $primaryKey = 'id';
-    protected $keyType = 'string';
+    
 
         /**
      * The "booting" method of the model.
