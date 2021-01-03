@@ -26,7 +26,7 @@ trait ApiResponser
 		$collection = $this->sortData($collection);
 		$collection = $this->paginate($collection);
 		$collection = $this->cacheResponse($collection);
-		
+
 		return $this->successResponse(['data' => $collection], $code);
 	}
 
@@ -43,8 +43,15 @@ trait ApiResponser
 	protected function cacheResponse($data)
 	{
 		$url = request()->url();
+		$queryParams = request()->query();
 
-		return Cache::remember($url, 30/60, function() use($data) {
+		ksort($queryParams);
+
+		$queryString = http_build_query($queryParams);
+
+		$fullUrl = "{$url}?{$queryString}";
+
+		return Cache::remember($fullUrl, 30/60, function() use($data) {
 			return $data;
 		});
 	}
