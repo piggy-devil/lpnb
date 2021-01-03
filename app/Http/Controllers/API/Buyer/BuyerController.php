@@ -17,7 +17,7 @@ class BuyerController extends ApiController
     {
         $buyers = Buyer::has('transactions')->get();
 
-        return response()->json(['data' => $buyers], 200);
+        return $this->showAll($buyers);
     }
 
     /**
@@ -28,6 +28,6 @@ class BuyerController extends ApiController
      */
     public function show(Buyer $buyer)
     {
-        return response()->json(['data' => $buyer], 200);
+        return $this->showOne($buyer);
     }
 }
