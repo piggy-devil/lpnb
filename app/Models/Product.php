@@ -14,6 +14,8 @@ class Product extends Model
 
     const AVAILABLE_PRODUCT = 'available';
     const UNAVAILABLE_PRODUCT = 'unavailable';
+    
+    public $incrementing = false;
 
     protected $fillable = [
     	'id',

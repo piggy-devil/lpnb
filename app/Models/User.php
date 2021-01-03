@@ -19,6 +19,9 @@ class User extends Authenticatable
     const ADMIN_USER = 'true';
     const REGULAR_USER = 'false';
 
+    protected $table = 'users';
+    public $incrementing = false;
+
     /**
      * The "booting" method of the model.
      *

@@ -12,6 +12,20 @@ class Transaction extends Model
 {
     use HasFactory;
 
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->{$model->getKeyName()} = (string) Str::uuid();
+        });
+    }
+
     protected $fillable = [
         'id',
     	'quantity',
