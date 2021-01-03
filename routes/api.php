@@ -33,6 +33,7 @@ use App\Http\Controllers\API\Transaction\TransactionSellerController;
 Route::resource('buyers', BuyerController::class)->only(['index', 'show']);
 Route::resource('buyers.sellers', BuyerSellerController::class)->only(['index']);
 Route::resource('buyers.products', BuyerProductController::class)->only(['index']);
+Route::resource('buyers.categories', BuyerCategoryController::class)->only(['index']);
 Route::resource('buyers.transactions', BuyerTransactionController::class)->only(['index']);
 
 /**
