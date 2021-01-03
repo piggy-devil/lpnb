@@ -3,6 +3,7 @@
 namespace App\Http\Traits;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -24,6 +25,8 @@ trait ApiResponser
 		$collection = $this->filterData($collection);
 		$collection = $this->sortData($collection);
 		$collection = $this->paginate($collection);
+		$collection = $this->cacheResponse($collection);
+		
 		return $this->successResponse(['data' => $collection], $code);
 	}
 
@@ -35,6 +38,15 @@ trait ApiResponser
 	protected function showMessage($message, $code = 200)
 	{
 		return $this->successResponse(['data' => $message], $code);
+	}
+
+	protected function cacheResponse($data)
+	{
+		$url = request()->url();
+
+		return Cache::remember($url, 30/60, function() use($data) {
+			return $data;
+		});
 	}
 
 	protected function paginate(Collection $collection)
