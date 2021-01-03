@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API\Seller;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Seller;
 use Illuminate\Http\Request;
 
 class SellerController extends Controller
@@ -15,51 +15,20 @@ class SellerController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $sellers = Seller::has('products')->get();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return response()->json(['data' => $sellers], 200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Seller  $seller
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Seller $seller)
     {
-        //
+        return response()->json(['data' => $seller], 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, User $user)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user)
-    {
-        //
-    }
 }
