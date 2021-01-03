@@ -9,6 +9,7 @@ use App\Http\Controllers\API\Product\ProductController;
 use App\Http\Controllers\API\Buyer\BuyerSellerController;
 use App\Http\Controllers\API\Category\CategoryController;
 use App\Http\Controllers\API\Buyer\BuyerProductController;
+use App\Http\Controllers\API\Seller\SellerBuyerController;
 use App\Http\Controllers\API\Buyer\BuyerCategoryController;
 use App\Http\Controllers\API\Seller\SellerCategoryController;
 use App\Http\Controllers\API\Buyer\BuyerTransactionController;
@@ -62,6 +63,7 @@ Route::resource('products', ProductController::class)->only(['index', 'show']);
  * Sellers
  */
 Route::resource('sellers', SellerController::class)->only(['index', 'show']);
+Route::resource('sellers.buyers', SellerBuyerController::class)->only(['index']);
 Route::resource('sellers.categories', SellerCategoryController::class)->only(['index', 'show']);
 Route::resource('sellers.transactions', SellerTransactionController::class)->only(['index', 'show']);
 
