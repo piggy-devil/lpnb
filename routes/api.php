@@ -45,6 +45,7 @@ Route::resource('buyers.transactions', BuyerTransactionController::class)->only(
  * Categories
  */
 Route::resource('categories', CategoryController::class)->except(['create', 'edit']);
+Route::resource('categories.buyers', CategoryBuyerController::class)->only(['index']);
 Route::resource('categories.sellers', CategorySellerController::class)->only(['index']);
 Route::resource('categories.products', CategoryProductController::class)->only(['index']);
 Route::resource('categories.transactions', CategoryTransactionController::class)->only(['index']);
