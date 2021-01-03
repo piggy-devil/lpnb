@@ -7,10 +7,11 @@ use App\Models\Product;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Transaction extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     /**
      * The "booting" method of the model.
@@ -25,6 +26,8 @@ class Transaction extends Model
             $model->{$model->getKeyName()} = (string) Str::uuid();
         });
     }
+
+    protected $dates = ['deleted_at'];
 
     protected $fillable = [
         'id',
