@@ -13,7 +13,7 @@ class Product extends Model
     use HasFactory;
 
     const AVAILABLE_PRODUCT = 'available';
-	const UNAVAILABLE_PRODUCT = 'unavailable';
+    const UNAVAILABLE_PRODUCT = 'unavailable';
 
     protected $fillable = [
     	'id',

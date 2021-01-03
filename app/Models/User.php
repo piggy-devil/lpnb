@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -20,7 +19,7 @@ class User extends Authenticatable
     const ADMIN_USER = 'true';
     const REGULAR_USER = 'false';
 
-        /**
+    /**
      * The "booting" method of the model.
      *
      * @return void
@@ -82,6 +81,6 @@ class User extends Authenticatable
 
     public static function generateVerificationCode()
     {
-        return Arr::random(40);
+        return Str::random(40);
     }
 }
