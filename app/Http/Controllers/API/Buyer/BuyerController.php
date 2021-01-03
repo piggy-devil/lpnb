@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API\Buyer;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Models\Buyer;
 use Illuminate\Http\Request;
 
 class BuyerController extends Controller
@@ -15,51 +15,19 @@ class BuyerController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $buyers = Buyer::has('transactions')->get();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return response()->json(['data' => $buyers], 200);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\Buyer  $buyer
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(Buyer $buyer)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, User $user)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(User $user)
-    {
-        //
+        return response()->json(['data' => $buyer], 200);
     }
 }
