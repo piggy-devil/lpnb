@@ -48,6 +48,7 @@ Route::resource('sellers', SellerController::class)->only(['index', 'show']);
  * Transactions
  */
 Route::resource('transactions', TransactionController::class)->only(['index', 'show']);
+Route::resource('transactions.categories', TransactionController::class)->only(['index']);
 
 /**
  * Users
