@@ -17,6 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->string('description', 1000);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
