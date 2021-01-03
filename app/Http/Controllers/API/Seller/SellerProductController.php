@@ -7,6 +7,7 @@ use App\Models\Seller;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class SellerProductController extends Controller
@@ -49,17 +50,6 @@ class SellerProductController extends Controller
         $product = Product::create($data);
 
         return $this->showOne($product);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Seller  $seller
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Seller $seller)
-    {
-        //
     }
 
     /**
@@ -115,6 +105,8 @@ class SellerProductController extends Controller
         $this->checkSeller($seller, $product);
 
         $product->delete();
+
+        Storage::delete($product->image);
 
         return $this->showOne($product);
     }
