@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        User::created(function($user) {
+        /* User::created(function($user) {
             retry(5, function() use ($user) {
                 Mail::to($user)->send(new UserCreated($user));
             }, 100);
@@ -40,7 +40,7 @@ class AppServiceProvider extends ServiceProvider
                     Mail::to($user)->send(new UserMailChanged($user));
                 }, 100);
             }
-        });
+        }); */
         
         Product::updated(function($product) {
             if ($product->quantity == 0 && $product->isAvailable()) {
