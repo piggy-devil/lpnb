@@ -13,6 +13,7 @@ use App\Http\Controllers\API\Seller\SellerBuyerController;
 use App\Http\Controllers\API\Buyer\BuyerCategoryController;
 use App\Http\Controllers\API\Product\ProductBuyerController;
 use App\Http\Controllers\API\Seller\SellerProductController;
+use Laravel\Passport\Http\Controllers\AccessTokenController;
 use App\Http\Controllers\API\Seller\SellerCategoryController;
 use App\Http\Controllers\API\Buyer\BuyerTransactionController;
 use App\Http\Controllers\API\Category\CategoryBuyerController;
@@ -91,3 +92,5 @@ Route::resource('transactions.sellers', TransactionSellerController::class)->onl
 Route::resource('users', UserController::class)->except(['create', 'edit']);
 Route::get('users/verify/{token}', [UserController::class, 'verify'])->name('verify');
 Route::get('users/{user}/resend', [UserController::class, 'resend'])->name('resend');
+
+Route::post('oauth/token', [AccessTokenController::class, 'issueToken'])->name('issueToken');
