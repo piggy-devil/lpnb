@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Throwable;
+use Asm89\Stack\CorsService;
 use App\Http\Traits\ApiResponser;
 use Illuminate\Database\QueryException;
 use Illuminate\Auth\AuthenticationException;
@@ -34,7 +35,18 @@ class Handler extends ExceptionHandler
      * @param  \Exception  $exception
      * @return \Illuminate\Http\Response
      */
+
     public function render($request, Throwable $exception)
+    {
+        $response = $this->handleException($request, $exception);
+
+        app(CorsService::class)->addActualRequestHeaders($response, $request);
+
+        return $response;
+
+    }
+
+    public function handleException($request, Throwable $exception)
     {
         if ($exception instanceof ValidationException) {
             return $this->convertValidationExceptionToResponse($exception, $request);
