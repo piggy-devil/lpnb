@@ -8,6 +8,11 @@ use App\Http\Controllers\API\ApiController;
 
 class CategoryController extends ApiController
 {
+    public function __construct()
+    {
+        $this->middleware('client.credentials')->only(['index', 'show']);
+    }
+
     /**
      * Display a listing of the resource.
      *
