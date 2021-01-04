@@ -12,6 +12,6 @@ class ApiController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api');  // Password Grant Type Access Token
+        // $this->middleware('auth:api');  // Password Grant Type Access Token
     }
 }
