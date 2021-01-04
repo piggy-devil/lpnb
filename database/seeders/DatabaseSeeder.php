@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Transaction;
+use Laravel\Passport\Passport;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -32,10 +33,10 @@ class DatabaseSeeder extends Seeder
         Product::flushEventListeners();
         Transaction::flushEventListeners();
         
-        $usersQuantity = 200;
+        $usersQuantity = 20;
         $categoriesQuantity = 30;
-        $productsQuantity = 1000;
-        $transactionsQuantity = 1000;
+        $productsQuantity = 100;
+        $transactionsQuantity = 100;
 
         User::factory()->count($usersQuantity)->create();
         Category::factory()->count($categoriesQuantity)->create();
@@ -49,5 +50,29 @@ class DatabaseSeeder extends Seeder
         	});
 
         Transaction::factory()->count($transactionsQuantity)->create();
+
+        $personalClient = Passport::client()->forceCreate([
+            'user_id' => null,
+            'name' => 'Seeder Personal Access Client',
+            'secret' => 'lDMkhi2mpMHAkPqn4FdWUTKFDGBfa7tQ8aN5Bo0k',
+            'redirect' => 'https://lpnb.dev',
+            'personal_access_client' => true,
+            'password_client' => false,
+            'revoked' => false,
+        ]);
+
+        Passport::client()->forceCreate([
+            'user_id' => null,
+            'name' => 'Seeder Password Grant Client',
+            'secret' => 'EyhTMjbBnr29fD44SMjiFYhbyfaM0vBAfu8TTwO2',
+            'redirect' => 'https://lpnb.dev',
+            'personal_access_client' => false,
+            'password_client' => true,
+            'revoked' => false,
+        ]);
+
+        Passport::personalAccessClient()->forceCreate([
+            'client_id' => $personalClient->id,
+        ]);
     }
 }
