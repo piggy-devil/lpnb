@@ -31,6 +31,7 @@ class Kernel extends HttpKernel
     protected $middlewareGroups = [
         'web' => [
             'signature:X-Application-Name',
+
             \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
@@ -42,6 +43,8 @@ class Kernel extends HttpKernel
 
         'api' => [
             'signature:X-Application-Name',
+            'cors',
+            
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
@@ -63,11 +66,12 @@ class Kernel extends HttpKernel
         'client.credentials' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
         'scope' => \Laravel\Passport\Http\Middleware\CheckForAnyScope::class,
         'scopes' => \Laravel\Passport\Http\Middleware\CheckScopes::class,
+        'cors' => \Fruitcake\Cors\HandleCors::class,
 
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
-        // 'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        // 'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class, // use custom throttle
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
 
         /* Custom Middleware*/
