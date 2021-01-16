@@ -5,11 +5,17 @@ namespace App\Http\Controllers\API\User;
 use App\Models\User;
 use App\Mail\UserCreated;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\API\ApiController;
 
 class UserController extends ApiController
 {
+    public function __construct()
+    {
+        // $this->middleware('auth:api')->except(['login', 'store']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -20,6 +26,38 @@ class UserController extends ApiController
         $users = User::all();
 
         return $this->showAll($users);
+    }
+
+    public function login(Request $request) {
+        if($request->isMethod('post')) {
+            $rules = [
+                'email' => 'required|email|max:255',
+                'password' => 'required|min:6',
+            ];
+
+            $this->validate($request, $rules);
+
+            $user = User::where('email', $request->email)->first();
+
+            if ($user) {
+                if (Hash::check($request->password, $user->password)) {
+                    $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+
+                    $response = [
+                        'idToken' => $token,
+                        'localId' => $user->id,
+                        'expiresIn' => 3600
+                    ];
+
+                    return response($response, 200);
+
+                } else {
+                    return $this->errorResponse('Password mismatch', 422);
+                }
+            } else {
+                return $this->errorResponse('User does not exist', 422);
+            }
+        }
     }
 
     /**

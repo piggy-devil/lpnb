@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\API\AuthenController;
+use App\Http\Controllers\API\AutheticateController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\User\UserController;
@@ -89,9 +91,17 @@ Route::resource('transactions.sellers', TransactionSellerController::class)->onl
 /**
  * Users
  */
-Route::resource('users', UserController::class)->except(['create', 'store', 'edit']);
+Route::resource('users', UserController::class)->except(['create', 'edit']);
 Route::get('users/verify/{token}', [UserController::class, 'verify'])->name('verify');
 Route::get('users/{user}/resend', [UserController::class, 'resend'])->name('resend');
 Route::get('users/me', [UserController::class, 'me'])->name('me');
+Route::post('users/login', [UserController::class, 'login']);
 
 Route::post('oauth/token', [AccessTokenController::class, 'issueToken'])->name('issueToken');
+
+Route::resource('auths', AutheticateController::class);
+Route::post('login', [AutheticateController::class, 'login'])->name('login');
+
+
+// Route::post('/register', [AuthenController::class, 'register']);
+// Route::post('/logout', [AuthenController::class, 'logout'])->middleware('auth:api');
